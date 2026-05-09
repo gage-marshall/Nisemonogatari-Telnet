@@ -436,13 +436,17 @@ def _read_key(conn: socket.socket) -> str | None:
                 return ch if ch.strip() else None
         buf = b''
 
-def run_server(host: str, port: int):
+def run_server(host: str, port: int, web_port: int | None = 2323):
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s  %(name)s  %(message)s',
         datefmt='%H:%M:%S',
     )
     log = logging.getLogger('server')
+
+    if web_port is not None:
+        import web_server
+        web_server.start(host, web_port)
 
     missing = [ep for ep, _ in EPISODES
                if not os.path.exists(os.path.join(OUTPUT_DIR, f'{ep}.ansi.gz'))]
@@ -470,8 +474,11 @@ def main():
     parser = argparse.ArgumentParser(description='Nisemonogatari ANSI Telnet Server')
     parser.add_argument('--host', default='0.0.0.0')
     parser.add_argument('--port', type=int, default=23)
+    parser.add_argument('--web-port', type=int, default=2323,
+                        help='Port for the HTTP landing page (default: 2323, 0 to disable)')
     args = parser.parse_args()
-    run_server(args.host, args.port)
+    web_port = args.web_port if args.web_port else None
+    run_server(args.host, args.port, web_port)
 
 
 if __name__ == '__main__':
