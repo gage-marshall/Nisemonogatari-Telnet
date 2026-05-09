@@ -6,6 +6,8 @@ A Telnet server that streams **Nisemonogatari** episodes as ANSI art, directly t
 telnet nisemonogatari.com
 ```
 ---
+![image](demo.gif)
+---
 
 ## What it is
 
