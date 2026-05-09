@@ -1,4 +1,4 @@
-# Nisemono
+# Nisemonogatari-Telnet
 
 A Telnet server that streams **Nisemonogatari** episodes as ANSI art, directly to your terminal.
 
