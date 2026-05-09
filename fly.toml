@@ -1,0 +1,30 @@
+# fly.toml app configuration file generated for nisemono on 2026-05-08T21:35:58-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'nisemono'
+primary_region = 'ord'
+
+[build]
+
+[http_service]
+  internal_port = 2323
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 23
+
+  [[services.ports]]
+    port = 23
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
